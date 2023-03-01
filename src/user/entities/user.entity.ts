@@ -16,10 +16,12 @@ export class UserEntity extends Timestamp {
   @Column()
   password: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   firstname: string;
 
-  @Column()
+  @Column({ nullable: true })
   lastname: string;
 
   @OneToMany(() => PostEntity, (post) => post.user)

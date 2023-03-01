@@ -62,9 +62,9 @@ export class PostService {
     return post;
   }
 
-  async createPost(post: CreatePostDto) {
+  async createPost(post: CreatePostDto, user: any) {
     try {
-      return await this.postRepository.save(post);
+      return await this.postRepository.save({ ...post, user: user });
     } catch (error) {
       console.log(error);
       return error;

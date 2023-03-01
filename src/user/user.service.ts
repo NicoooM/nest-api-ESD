@@ -33,6 +33,10 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
+  async findOneByEmail(email: string) {
+    return this.userRepository.findOneBy({ email });
+  }
+
   update(id: number, updateUserDto: UpdateUserDto) {
     return this.userRepository.update(id, updateUserDto);
   }

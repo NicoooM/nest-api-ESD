@@ -9,10 +9,13 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common/decorators';
 import { CreatePostDto } from './entity/create-post.dto';
 import { PostEntity } from './entity/post.entity';
 import { UpdatePostDto } from './entity/update-post.dto';
 import { PostService } from './post.service';
+import { JwtAuthGuard } from '../auth/guard/passport-jwt.guard';
+import { User } from 'src/decorator/user.decorator';
 
 @Controller('posts')
 export class PostController {
@@ -29,8 +32,9 @@ export class PostController {
   }
 
   @Post()
-  createPost(@Body() post: CreatePostDto) {
-    return this.postService.createPost(post);
+  @UseGuards(JwtAuthGuard)
+  createPost(@Body() post: CreatePostDto, @User() user) {
+    return this.postService.createPost(post, user);
   }
 
   @Put(':id')
